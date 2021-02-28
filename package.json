@@ -1,0 +1,24 @@
+{
+  "name": "dummy-node-service",
+  "version": "1.0.0",
+  "description": "This is a dummy node service used for capstone project for Udacity DevOps Nanodegree.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "",
+    "start": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xiaosha61/udacity-cloud-devops-project-capstone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xiaosha61/udacity-cloud-devops-project-capstone/issues"
+  },
+  "homepage": "https://github.com/Xiaosha61/udacity-cloud-devops-project-capstone#readme",
+  "dependencies": {
+    "koa": "^2.13.1"
+  }
+}
