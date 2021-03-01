@@ -20,6 +20,16 @@ docker stop <my_container_id or my_container_name>
 kubectl config view # check all Merged kubeconfig settings, which shows which Kubernetes cluster kubectl communicates with.
 kubectl config use-context my_cluster_name # switch between clusters
 kubectl config current-context # display the current-context
+
+kubectl get all # check all resources in the cluster, including pods, services, deployments
+
+kubectl delete pod <my_pod_name>
+```
+
+Minikube - local cluster
+```
+kubectl config use-context minikube
+minikube start
 ```
 
 ### Jenkins
