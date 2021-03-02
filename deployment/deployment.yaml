@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udacity-devops-capstone
+  labels:
+    app: udacity-devops-capstone
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: udacity-devops-capstone
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: udacity-devops-capstone
+    spec:
+      containers:
+        - image: xiaoshax/dummy_node_service
+          imagePullPolicy: Always
+          name: udacity-devops-capstone
+          ports:
+            - containerPort: 3002 # does it matter?
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: udacity-devops-capstone
+  labels:
+    app: udacity-devops-capstone
+spec:
+  type: LoadBalancer
+  selector:
+    app: udacity-devops-capstone
+  ports:
+    - port: 1 # what is this?
+      targetPort: 3000 # container's port that runs the app
+      nodePort: 30000 # node's port that forward the request to container
+      protocol: TCP

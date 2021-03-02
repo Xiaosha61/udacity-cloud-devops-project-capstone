@@ -27,9 +27,17 @@ kubectl delete pod <my_pod_name>
 ```
 
 Minikube - local cluster
-```
+```bash
 kubectl config use-context minikube
 minikube start
+
+# try out
+kubectl apply -f deployment/deployment.yaml # contains a service+deployment
+kubectl get all
+minikube service udacity-devops-capstone
+
+kubectl delete -f deployment/deployment.yaml
+
 ```
 
 ### Jenkins
