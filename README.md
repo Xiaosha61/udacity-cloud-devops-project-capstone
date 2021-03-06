@@ -69,6 +69,15 @@ kubectl delete -f deployment/deployment.yaml
     sudo chmod 777 /var/run/docker.sock
     ```
 
+  - Your cache folder contains root-owned files, due to a bug in previous versions of npm which has since been addressed.
+    https://stackoverflow.com/questions/42743201/npm-install-fails-in-jenkins-pipeline-in-docker
+    ```
+    // add this in your Jenkinsfile
+    environment {
+        HOME = '.'
+    } 
+    ```
+
 ## Project Steps
 
 ### Containerize the application
@@ -97,12 +106,9 @@ kubectl delete -f deployment/deployment.yaml
 
 This [tutorial](https://medium.com/@andresaaap/how-to-install-docker-aws-cli-eksctl-kubectl-for-jenkins-in-linux-ubuntu-18-04-3e3c4ceeb71) is going to be useful for creating installing jenkins.
 
-Create the kubernetes cluster in aws.
+### Create the kubernetes cluster in aws.
 
 You can do it with [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html) and it is the official eks. This tool is great for deploying cluster to AWS and it uses CloudFormation. It will simplify and speed up the process.
-
-### Run the Jenkins pipeline.
-
 
 ## References
 - [Capstone, Cloud DevOps Nanodegree FAQ](https://medium.com/@andresaaap/capstone-cloud-devops-nanodegree-4493ab439d48)

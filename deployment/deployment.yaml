@@ -39,7 +39,7 @@ spec:
   selector:
     app: udacity-devops-capstone
   ports:
-    - port: 1 # what is this?
+    - port: 3000 # what is this?
       targetPort: 3000 # container's port that runs the app
       nodePort: 30000 # node's port that forward the request to container
       protocol: TCP

@@ -1,6 +1,12 @@
 pipeline {
-    agent { docker { image 'node:12-alpine' } }
-
+    agent {
+        dockerfile {
+            filename 'Dockerfile'
+        }
+    }
+    environment {
+        HOME = '.'
+    }
     stages {
         stage('Build') {
             steps {
