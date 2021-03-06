@@ -43,6 +43,7 @@ kubectl delete -f deployment/deployment.yaml
 ### Jenkins
 
 - install Jenkins 
+  - https://www.digitalocean.com/community/tutorials/how-to-install-jenkins-on-ubuntu-18-04 
   ```bash
   sudo apt-get update
   sudo apt install -y default-jdk
@@ -50,10 +51,23 @@ kubectl delete -f deployment/deployment.yaml
   sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
       /etc/apt/sources.list.d/jenkins.list'
   sudo apt-get update
-sudo apt-get install jenkins
+  sudo apt-get install jenkins
 
   sudo systemctl start jenkins
   ```
+
+- Add a new Pipeline
+  - https://www.jenkins.io/doc/pipeline/tour/hello-world/
+
+- Add Plugins
+  - in order to use docker agent, plugins need to be added.
+  - dashboard --> Manage Jenkins --> Manage Plugins
+
+- Troubleshooting:
+  - Got permission denied while trying to connect to the Docker daemon
+    ```bash
+    sudo chmod 777 /var/run/docker.sock
+    ```
 
 ## Project Steps
 
