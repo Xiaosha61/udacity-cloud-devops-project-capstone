@@ -9,8 +9,11 @@ This is the capstone project for Udacity DevOps Nanodegree.
 sudo apt install docker.io
 sudo usermod -a -G docker <username>
 
-docker start <my_container_id or my_container_name>
-docker stop <my_container_id or my_container_name>
+docker start <my_container>
+docker stop <my_container>
+docker rm <my_container>
+
+docker exec -it <my_container>s ls # any commands that are available in the docker container 
 ```
 
 ### Kubernetes
