@@ -80,6 +80,15 @@ kubectl delete -f deployment/deployment.yaml
         HOME = '.'
     } 
     ```
+  
+  - Get `denied: requested access to the resource is denied` on `docker push` in Jenkins
+    - need to add credentials in your Jenkins' environment
+    - dashboard/<project_job>/credentials
+      ```
+      withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
+          sh 'docker push sabbir33/capstone-project-cloud-devops'
+      }  
+      ```
 
 ## Project Steps
 

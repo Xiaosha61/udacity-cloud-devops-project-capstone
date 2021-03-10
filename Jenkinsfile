@@ -32,7 +32,9 @@ pipeline {
          stage('Push Docker Image') {
               steps {
                   sh "docker tag dummy_node_service xiaoshax/dummy_node_service"
-                  sh 'docker push xiaoshax/dummy_node_service'
+                  withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
+                    sh 'docker push xiaoshax/dummy_node_service'
+                  }
               }
          }
     }
