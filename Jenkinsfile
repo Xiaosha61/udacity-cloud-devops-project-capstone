@@ -1,9 +1,10 @@
 pipeline {
-    agent {
-        dockerfile {
-            filename 'Dockerfile'
-        }
-    }
+    agent any
+    // agent {
+    //     dockerfile {
+    //         filename 'Dockerfile'
+    //     }
+    // }
     environment {
         HOME = '.'
     }

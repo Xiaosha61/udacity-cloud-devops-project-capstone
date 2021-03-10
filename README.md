@@ -13,7 +13,7 @@ docker start <my_container>
 docker stop <my_container>
 docker rm <my_container>
 
-docker exec -it <my_container>s ls # any commands that are available in the docker container 
+docker exec -it <my_container> ls # any commands that are available in the docker container 
 ```
 
 ### Kubernetes
