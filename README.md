@@ -1,5 +1,33 @@
 # udacity-cloud-devops-project-capstone
 This is the capstone project for Udacity DevOps Nanodegree.
+## Project Steps
+
+### Containerize the application
+
+1. Identify the application that you're going to use.
+2. Build a Docker file to containerize the application.
+3. Test the docker file in docker and make sure that it works.
+
+### Create a kubernetes deployment and test it locally with minikube.
+
+1. Now that you have a containerized application with the Docker file, build the image and push it to dockerhub.
+2. Create our deployment file in `./deployment/deployment.yaml` that is going to use the image that is in docker hub.
+3. Create a service that makes the containers publicly accessible.
+4. Create a cluster locally using minikube.
+5. [Deploy the service and the deployment to the closer locally and test that the application works](https://youtu.be/WeWv2Htb1-g).
+
+### Create a Jenkins pipeline that:
+
+1. lints
+2. builds the docker image
+3. push the image to dockerhub
+4. deploy the containers to the kubernetes cluster
+
+This [tutorial](https://medium.com/@andresaaap/how-to-install-docker-aws-cli-eksctl-kubectl-for-jenkins-in-linux-ubuntu-18-04-3e3c4ceeb71) is going to be useful for creating installing jenkins.
+
+### Create the kubernetes cluster in aws.
+
+You can do it with [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html) and it is the official eks. This tool is great for deploying cluster to AWS and it uses CloudFormation. It will simplify and speed up the process.
 
 ## My CheatSheet
 
@@ -90,37 +118,6 @@ kubectl delete -f deployment/deployment.yaml
       }  
       ```
 
-## Project Steps
-
-### Containerize the application
-
-1. You need to identify the application that you're going to use. It is a good idea to use one of the applications from the previous projects of this Nanodegree.
-2. Build a Docker file to containerize the application.
-3. Test the docker file in docker and make sure that it works.
-
-### Create a kubernetes deployment and test it locally with minikube.
-
-1. Now that you have a containerized application with the Docker file, build the image and push it to dockerhub.
-2. Create our deployment file that is going to use the image that is in docker hub.
-3. Create a service that makes the containers publicly accessible.
-4. Create a cluster locally using minikube.
-5. [Deploy the service and the deployment to the closer locally and test that the application works](https://youtu.be/WeWv2Htb1-g).
-
-### Create a Jenkins pipeline that:
-
-1. lints
-
-2. builds the docker image
-
-3. push the image to dockerhub
-
-4. deploy the containers to the kubernetes cluster
-
-This [tutorial](https://medium.com/@andresaaap/how-to-install-docker-aws-cli-eksctl-kubectl-for-jenkins-in-linux-ubuntu-18-04-3e3c4ceeb71) is going to be useful for creating installing jenkins.
-
-### Create the kubernetes cluster in aws.
-
-You can do it with [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html) and it is the official eks. This tool is great for deploying cluster to AWS and it uses CloudFormation. It will simplify and speed up the process.
 
 ## References
 - [Capstone, Cloud DevOps Nanodegree FAQ](https://medium.com/@andresaaap/capstone-cloud-devops-nanodegree-4493ab439d48)
