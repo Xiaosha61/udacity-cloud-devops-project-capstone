@@ -29,6 +29,44 @@ This [tutorial](https://medium.com/@andresaaap/how-to-install-docker-aws-cli-eks
 
 You can do it with [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html) and it is the official eks. This tool is great for deploying cluster to AWS and it uses CloudFormation. It will simplify and speed up the process.
 
+- [Create Your First Application on AWS EKS Cluster](https://medium.com/faun/create-your-first-application-on-aws-eks-kubernetes-cluster-874ee9681293)
+
+1. create an AWS IAM service role with EKS-Cluster use case
+  - arn:aws:iam::737302360365:role/eks-cluster-manager-xing
+2. Create a VPC to deploy the cluster
+  - [stack template](https://amazon-eks.s3-us-west-2.amazonaws.com/cloudformation/2019-02-11/amazon-eks-vpc-sample.yaml)
+
+Using CloudFormation
+```bash
+cd cloudformation
+
+# create VPC
+./create-stack.sh my-test-network-stack ./network.yml ./network-params.json
+
+# create EKS Cluster
+./create-stack.sh my-test-eks-stack ./eks-cluster.yml ./eks-cluster-params.json
+
+# configure kubectl for AWS EKS.
+aws eks --region us-west-2 update-kubeconfig --name CapstoneEKS-XUFXgAzJQubR
+
+# create node group to join the cluster
+./create-stack.sh my-test-nodegroup-stack ./eks-nodegroup.yml ./eks-nodegroup-params.json
+
+# copy the NodeInstanceRole ARN from nodegroup stack
+
+# apply ConfigMap
+kubectl apply -f ./aws-auth-cm.yml # use the NodeInstanceRole from nodegroup stack
+
+# deploy application
+cd -
+kubectl config use-context arn:aws:eks:us-west-2:737302360365:cluster/CapstoneEKS-XUFXgAzJQubR
+kubectl apply -f deployment/deployment.yml
+kubectl get nodes
+kubectl get deployment
+kubectl get pod -o wide
+kubectl get service/capstone-project-cloud-devops
+```
+
 ## My CheatSheet
 
 ### Docker

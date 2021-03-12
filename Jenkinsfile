@@ -37,5 +37,20 @@ pipeline {
                   }
               }
          }
+
+         stage('Deploy Application') {
+             steps {
+                  withAWS(credentials: 'aws', region: 'us-west-2') {
+                      sh "aws eks --region us-west-2 update-kubeconfig --name CapstoneEKS-XUFXgAzJQubR"
+                      sh "kubectl config use-context arn:aws:eks:us-west-2:737302360365:cluster/CapstoneEKS-XUFXgAzJQubR"
+                      sh "kubectl apply -f deployment/deployment.yaml"
+                      sh "kubectl get nodes"
+                      sh "kubectl get deployment"
+                      sh "kubectl get pod -o wide"
+                      sh "kubectl get service/capstone-project-cloud-devops"
+                  }
+                }
+             }
+         }
     }
 }
