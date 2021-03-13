@@ -3,3 +3,5 @@ node_modules
 package-lock.json
 .credentials
 draft
+eksctl/config
+eksctl/config.eksctl.lock

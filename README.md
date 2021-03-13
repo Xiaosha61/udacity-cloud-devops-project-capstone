@@ -1,5 +1,23 @@
 # udacity-cloud-devops-project-capstone
 This is the capstone project for Udacity DevOps Nanodegree.
+
+## Project files
+
+- application files:
+  - index.js
+  - .eslintrc.json
+  - package.json
+  - yarn.lock
+
+- script files:
+  - run_docker.sh
+  - upload_docker.sh
+  - run_kubernetes.sh: used for local run in minikube
+
+- cluster deployment:
+  - cloudformation/: build step by step the VPC, Cluster and NodeGroup
+  - eksctl/: util scripts that can deploy cluster in one step
+
 ## Project Steps
 
 ### Containerize the application
@@ -137,6 +155,27 @@ kubectl delete -f deployment/deployment.yaml
   - in order to use docker agent, plugins need to be added.
   - dashboard --> Manage Jenkins --> Manage Plugins
 
+- Enable Jenkins to push to my dockerhub
+  - Otherwise will get `denied: requested access to the resource is denied` on `docker push` in Jenkins
+    - need to add credentials in your Jenkins' environment
+    - dashboard/<project_job>/credentials
+    - job/capstone/credentials/store/folder/domain/
+    - Kind: Username with password
+      ```
+      withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
+          sh 'docker push sabbir33/capstone-project-cloud-devops'
+      }  
+      ```
+
+- Enable Jenkins to access AWS
+  - install plugin "Pipeline AWS Plugin", it provides new credential kinds(aws credentials)
+  - add the aws keys via: /credentials/store/system/domain/
+      ```
+      withAWS(credentials: 'aws-creds', region: 'us-west-2') {
+          sh "aws s3 ls"
+      }
+      ```
+
 - Troubleshooting:
   - Got permission denied while trying to connect to the Docker daemon
     ```bash
@@ -151,20 +190,12 @@ kubectl delete -f deployment/deployment.yaml
         HOME = '.'
     } 
     ```
-  
-  - Get `denied: requested access to the resource is denied` on `docker push` in Jenkins
-    - need to add credentials in your Jenkins' environment
-    - dashboard/<project_job>/credentials
-      ```
-      withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
-          sh 'docker push sabbir33/capstone-project-cloud-devops'
-      }  
-      ```
 
 
 ## References
 - [Capstone, Cloud DevOps Nanodegree FAQ](https://medium.com/@andresaaap/capstone-cloud-devops-nanodegree-4493ab439d48)
 - [Jenkins pipeline for blue green deployment using AWS EKS — Kubernetes — Docker](https://medium.com/@andresaaap/jenkins-pipeline-for-blue-green-deployment-using-aws-eks-kubernetes-docker-7e5d6a401021?source=your_stories_page---------------------------)
+- [Create Your First Application on AWS EKS Cluster](https://medium.com/faun/create-your-first-application-on-aws-eks-kubernetes-cluster-874ee9681293)
 - [Simple blue-green deployment in kubernetes using minikube](https://medium.com/@andresaaap/simple-blue-green-deployment-in-kubernetes-using-minikube-b88907b2e267?source=your_stories_page---------------------------)
 - [How to install docker, aws cli, eksctl, kubectl for Jenkins in Linux Ubuntu 18.04?](https://medium.com/@andresaaap/how-to-install-docker-aws-cli-eksctl-kubectl-for-jenkins-in-linux-ubuntu-18-04-3e3c4ceeb71)
 - [How to configure and execute a rolling update strategy in kubernetes?](https://medium.com/@andresaaap/how-to-configure-and-execute-a-rolling-update-strategy-in-kubernetes-5e662be968b)
