@@ -36,30 +36,35 @@ You can do it with [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/get
 2. Create a VPC to deploy the cluster
   - [stack template](https://amazon-eks.s3-us-west-2.amazonaws.com/cloudformation/2019-02-11/amazon-eks-vpc-sample.yaml)
 
-Using CloudFormation
+Using CloudFormation to create all infrastructures:
 ```bash
-cd cloudformation
-
 # create VPC
-./create-stack.sh my-test-network-stack ./network.yml ./network-params.json
+./cloudformation/create-stack.sh my-network-stack ./cloudformation/network.yml ./cloudformation/network-params.json
 
 # create EKS Cluster
-./create-stack.sh my-test-eks-stack ./eks-cluster.yml ./eks-cluster-params.json
+./cloudformation/create-stack.sh my-eks-stack ./cloudformation/eks-cluster.yml ./cloudformation/eks-cluster-params.json
 
 # configure kubectl for AWS EKS.
-aws eks --region us-west-2 update-kubeconfig --name CapstoneEKS-XUFXgAzJQubR
+aws eks --region us-west-2 update-kubeconfig --name CapstoneEKS-vy1E65pJBsNA
 
 # create node group to join the cluster
-./create-stack.sh my-test-nodegroup-stack ./eks-nodegroup.yml ./eks-nodegroup-params.json
+./cloudformation/create-stack.sh my-nodegroup-stack ./cloudformation/eks-nodegroup.yml ./cloudformation/eks-nodegroup-params.json
 
 # copy the NodeInstanceRole ARN from nodegroup stack
 
 # apply ConfigMap
-kubectl apply -f ./aws-auth-cm.yml # use the NodeInstanceRole from nodegroup stack
+kubectl apply -f ./cloudformation/aws-auth-cm.yml # use the NodeInstanceRole from nodegroup stack
 
+```
+As an alternative, using `eksctl`, this is doing the above internally, which brings a lot simplicity
+```bash
+./eksctl/create-eks-cluster.sh # filled with flags, can use config file as well
+```
+
+### deploy application in the cluster created in the last step
+```bash
 # deploy application
-cd -
-kubectl config use-context arn:aws:eks:us-west-2:737302360365:cluster/CapstoneEKS-XUFXgAzJQubR
+kubectl config use-context arn:aws:eks:us-west-2:737302360365:cluster/CapstoneEKS-vy1E65pJBsNA
 kubectl apply -f deployment/deployment.yml
 kubectl get nodes
 kubectl get deployment
